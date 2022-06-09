@@ -5,7 +5,7 @@ import MonacoEditor from './components/MonacoEditor'
 
 import demos from './demos'
 
-// import SchemaForm from '../lib'
+import SchemaForm from '../lib'
 
 // TODO: 在lib中export
 type Schema = any
@@ -105,10 +105,11 @@ export default defineComponent({
 
     const classesRef = useStyles()
 
-    // const handleChange = (v: any) => {
-    //   demo.data = v
-    //   demo.dataCode = toJson(v)
-    // }
+    const handleChange = (v: any) => {
+      // 利用 form 修订 demo 中的值
+      demo.data = v
+      demo.dataCode = toJson(v)
+    }
 
     function handleCodeChange(
       filed: 'schema' | 'data' | 'uiSchema',
@@ -177,11 +178,11 @@ export default defineComponent({
               </div>
             </div>
             <div class={classes.form}>
-              {/* <SchemaForm
+              <SchemaForm
                 schema={demo.schema}
                 onChange={handleChange}
                 value={demo.data}
-              /> */}
+              />
               {/* <SchemaForm
                 schema={demo.schema!}
                 uiSchema={demo.uiSchema!}
