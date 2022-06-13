@@ -9,7 +9,7 @@ export default defineComponent({
       let num = Number(e.target.value) as any
       num = Number.isNaN(num) ? undefined : num
 
-      props.onChange(num)
+      (props as any).onChange(num)
     }
 
     return () => {
