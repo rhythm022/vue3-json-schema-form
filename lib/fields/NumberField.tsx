@@ -8,8 +8,7 @@ export default defineComponent({
     const handleChange = (e: any) => {
       let num = Number(e.target.value) as any
       num = Number.isNaN(num) ? undefined : num
-
-      (props as any).onChange(num)
+      ;(props as any).onChange(num)
     }
 
     return () => {

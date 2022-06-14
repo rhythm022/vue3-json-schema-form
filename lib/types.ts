@@ -71,8 +71,8 @@ export const FiledPropsDefine = {
   },
 } as const
 
-// export const TypeHelperComponent = defineComponent({
-//   props: FiledPropsDefine,
-// })
+const TypeHelperComponent = defineComponent({
+  props: FiledPropsDefine,
+})
 
-// export type CommonFieldType = typeof TypeHelperComponent
+export type CommonFieldType = typeof TypeHelperComponent

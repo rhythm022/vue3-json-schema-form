@@ -5,6 +5,7 @@ import { retrieveSchema } from './utils'
 
 import StringField from './fields/StringField'
 import NumberField from './fields/NumberField'
+import ObjectField from './fields/ObjectField'
 
 export default defineComponent({
   name: 'SchemaItem',
@@ -18,6 +19,7 @@ export default defineComponent({
     return () => {
       const { schema } = props
       const retrievedSchema = retrievedSchemaRef.value
+      // console.log(schema, 'retrievedSchema:', retrievedSchema)
 
       let Component: any
       switch (schema.type) {
@@ -27,6 +29,10 @@ export default defineComponent({
         }
         case SchemaTypes.NUMBER: {
           Component = NumberField
+          break
+        }
+        case SchemaTypes.OBJECT: {
+          Component = ObjectField
           break
         }
         default: {
