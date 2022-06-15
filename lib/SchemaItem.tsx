@@ -6,7 +6,9 @@ import { retrieveSchema } from './utils'
 import StringField from './fields/StringField'
 import NumberField from './fields/NumberField'
 import ObjectField from './fields/ObjectField'
+import ArrayField from './fields/ArrayField'
 
+// 负责分发的组件
 export default defineComponent({
   name: 'SchemaItem',
   props: FiledPropsDefine,
@@ -33,6 +35,10 @@ export default defineComponent({
         }
         case SchemaTypes.OBJECT: {
           Component = ObjectField
+          break
+        }
+        case SchemaTypes.ARRAY: {
+          Component = ArrayField
           break
         }
         default: {

@@ -3,6 +3,7 @@ import { PropsDefine } from './types'
 import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './context'
 
+// 负责接口的组件
 export default defineComponent({
   name: 'SchemaForm',
   props: PropsDefine,
