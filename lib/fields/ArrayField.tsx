@@ -5,7 +5,7 @@ import { FiledPropsDefine, Schema } from '../types'
 
 import { useVJSFContext } from '../context'
 
-// import SelectionWidget from '../widgets/Selection'
+import SelectionWidget from '../widgets/Selection'
 /*
 {
   items: { type: number }
@@ -204,19 +204,19 @@ export default defineComponent({
           )
         })
       } else {
-        // 用户在可选范围内挑出一个值
-        // const enumOptions = (schema as any).items.enum
-        // const options = enumOptions.map((e: any) => ({
-        //   key: e,
-        //   value: e,
-        // }))
-        // return (
-        //   <SelectionWidget
-        //     onChange={props.onChange}
-        //     value={props.value}
-        //     options={options}
-        //   />
-        // )
+        // 用户在可选范围内挑出一个或多个值
+        const { enum: enums } = (schema as any).items
+        const options = enums.map((e: any) => ({
+          key: e,
+          value: e,
+        }))
+        return (
+          <SelectionWidget
+            onChange={props.onChange as (v: any) => void}
+            value={props.value}
+            options={options}
+          />
+        )
       }
     }
   },

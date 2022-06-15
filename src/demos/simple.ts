@@ -72,5 +72,6 @@ export default {
     password: 'noneed',
     staticArray: ['a', 2],
     // singleTypeArray: [{ name: 'jokcy', age: 12 }],
+    multiSelectArray: [],
   },
 }
