@@ -1,4 +1,4 @@
-import { defineComponent, PropType, ref, watch, watchEffect } from 'vue'
+import { defineComponent, PropType, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'SelectionWidget',
