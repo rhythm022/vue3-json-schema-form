@@ -63,7 +63,7 @@ export const PropsDefine = {
   },
 } as const
 
-export const FiledPropsDefine = {
+export const FieldPropsDefine = {
   ...PropsDefine,
   rootSchema: {
     type: Object as PropType<Schema>,
@@ -72,7 +72,7 @@ export const FiledPropsDefine = {
 } as const
 
 const TypeHelperComponent = defineComponent({
-  props: FiledPropsDefine,
+  props: FieldPropsDefine,
 })
 
 export type CommonFieldType = typeof TypeHelperComponent

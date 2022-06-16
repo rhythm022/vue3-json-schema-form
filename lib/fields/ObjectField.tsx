@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 
-import { FiledPropsDefine } from '../types'
+import { FieldPropsDefine } from '../types'
 import { isObject } from '../utils'
 import { useVJSFContext } from '../context'
 
@@ -19,7 +19,7 @@ const schema = {
 */
 export default defineComponent({
   name: 'ObjectField',
-  props: FiledPropsDefine,
+  props: FieldPropsDefine,
   setup(props) {
     const { SchemaItem } = useVJSFContext()
 

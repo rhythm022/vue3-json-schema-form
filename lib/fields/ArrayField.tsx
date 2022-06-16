@@ -1,7 +1,7 @@
 import { defineComponent, PropType } from 'vue'
 import { createUseStyles } from 'vue-jss'
 
-import { FiledPropsDefine, Schema } from '../types'
+import { FieldPropsDefine, Schema } from '../types'
 
 import { useVJSFContext } from '../context'
 
@@ -105,7 +105,7 @@ const ArrayItemWrapper = defineComponent({
 
 export default defineComponent({
   name: 'ArrayField',
-  props: FiledPropsDefine,
+  props: FieldPropsDefine,
   setup(props) {
     const context = useVJSFContext()
 

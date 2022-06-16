@@ -1,9 +1,9 @@
-import { FiledPropsDefine } from '../types'
+import { FieldPropsDefine } from '../types'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'NumberField',
-  props: FiledPropsDefine,
+  props: FieldPropsDefine,
   setup(props) {
     const handleChange = (e: any) => {
       let num = Number(e.target.value) as any

@@ -1,6 +1,6 @@
 import { defineComponent, computed } from 'vue'
 
-import { SchemaTypes, FiledPropsDefine } from './types'
+import { SchemaTypes, FieldPropsDefine } from './types'
 import { retrieveSchema } from './utils'
 
 import StringField from './fields/StringField'
@@ -11,7 +11,7 @@ import ArrayField from './fields/ArrayField'
 // 负责分发的组件
 export default defineComponent({
   name: 'SchemaItem',
-  props: FiledPropsDefine,
+  props: FieldPropsDefine,
   setup(props) {
     const retrievedSchemaRef = computed(() => {
       const { schema, rootSchema, value } = props

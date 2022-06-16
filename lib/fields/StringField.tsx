@@ -1,9 +1,9 @@
 import { defineComponent } from 'vue'
-import { FiledPropsDefine } from '../types'
+import { FieldPropsDefine } from '../types'
 
 export default defineComponent({
   name: 'StringField',
-  props: FiledPropsDefine,
+  props: FieldPropsDefine,
   setup(props) {
     const handleChange = (e: any) => {
       ;(props as any).onChange(e.target.value)
