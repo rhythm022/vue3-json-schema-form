@@ -1,8 +1,9 @@
-import { defineComponent } from "vue";
+import SelectionWidget from './Selection'
 
-defineComponent({
-    name:"xxx",
-    setup(){
-        return ()=>(<div>123</div>)
-    }
-})
+export default {
+  widgets: {
+    SelectionWidget,
+    TextWidget: null,
+    NumberWidget: null,
+  },
+}

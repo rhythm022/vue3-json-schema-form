@@ -6,12 +6,13 @@ import JsonSchemaForm from '../../lib'
 import NumberField from '../../lib/fields/NumberField'
 import StringField from '../../lib/fields/StringField'
 import ArrayField from '../../lib/fields/ArrayField'
-import SelectionWidget from '../../lib/widgets/Selection'
+import theme from '../../lib/theme-default'
 
 describe('ArrayField', () => {
   it('should render multi type', () => {
     const wrapper = mount(JsonSchemaForm, {
       props: {
+        theme:theme as any ,
         schema: {
           type: 'array',
           items: [
@@ -39,6 +40,7 @@ describe('ArrayField', () => {
   it('should render single type', () => {
     const wrapper = mount(JsonSchemaForm, {
       props: {
+        theme:theme as any ,
         schema: {
           type: 'array',
           items: {
@@ -62,6 +64,7 @@ describe('ArrayField', () => {
   it('should render single type', () => {
     const wrapper = mount(JsonSchemaForm, {
       props: {
+        theme:theme as any ,
         schema: {
           type: 'array',
           items: {
@@ -75,7 +78,7 @@ describe('ArrayField', () => {
     })
 
     const arr = wrapper.findComponent(ArrayField)
-    const select = arr.findComponent(SelectionWidget)
+    const select = arr.findComponent(theme.widgets.SelectionWidget)
     // const num = arr.findComponent(NumberField)
 
     expect(select.exists()).toBeTruthy()

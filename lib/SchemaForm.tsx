@@ -1,29 +1,31 @@
 import { defineComponent, provide } from 'vue'
-import { PropsDefine } from './types'
+import { FormPropsDefine } from './types'
 import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './context'
 
 // 负责接口的组件
 export default defineComponent({
   name: 'SchemaForm',
-  props: PropsDefine,
+  props: FormPropsDefine,
   setup(props) {
     const handleChange = (v: any) => {
       ;(props as any).onChange(v)
     }
     const context: any = {
       SchemaItem,
+      theme: props.theme,
     }
     provide(SchemaFormContextKey, context)
 
     return () => {
-      const _props = {
-        ...props,
-        onChange: handleChange,
-        rootSchema: props.schema,
-      }
-
-      return <SchemaItem {..._props} />
+      return (
+        <SchemaItem
+          rootSchema={props.schema}
+          schema={props.schema}
+          value={props.value}
+          onChange={handleChange}
+        />
+      )
     }
   },
 })

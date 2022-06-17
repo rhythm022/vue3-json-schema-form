@@ -5,7 +5,6 @@ import { FieldPropsDefine, Schema } from '../types'
 
 import { useVJSFContext } from '../context'
 
-import SelectionWidget from '../widgets/Selection'
 /*
 {
   items: { type: number }
@@ -158,6 +157,7 @@ export default defineComponent({
       const { schema, rootSchema, value } = props
 
       const SchemaItem = context.SchemaItem
+      const SelectionWidget = context.theme.widgets.SelectionWidget
 
       const isMultiType = Array.isArray(schema.items)
       const isSelect = schema.items && (schema.items as any).enum

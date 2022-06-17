@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils'
 import JsonSchemaForm from '../../lib'
 import NumberField from '../../lib/fields/NumberField'
 import StringField from '../../lib/fields/StringField'
+import theme from '../../lib/theme-default'
 
 describe('ObjectField', () => {
   let schema: any
@@ -23,6 +24,7 @@ describe('ObjectField', () => {
   it('should render properties to correct fields', async () => {
     const wrapper = mount(JsonSchemaForm, {
       props: {
+        theme:theme as any ,
         schema,
         value: {},
         onChange: () => {},
@@ -40,6 +42,7 @@ describe('ObjectField', () => {
     let value: any = {}
     const wrapper = mount(JsonSchemaForm, {
       props: {
+        theme:theme as any ,
         schema,
         value: value,
         onChange: (v) => {
@@ -64,6 +67,7 @@ describe('ObjectField', () => {
     }
     const wrapper = mount(JsonSchemaForm, {
       props: {
+        theme:theme as any ,
         schema,
         value: value,
         onChange: (v) => {

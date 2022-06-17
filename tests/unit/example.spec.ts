@@ -2,12 +2,14 @@ import { mount } from '@vue/test-utils'
 
 import JsonSchemaForm from '../../lib'
 import NumberField from '../../lib/fields/NumberField'
+import theme from '../../lib/theme-default'
 
 describe('JsonSchemaFrom', () => {
   it('should render correct number field', async () => {
     let value = ''
     const wrapper = mount(JsonSchemaForm, {
       props: {
+        theme:theme as any ,
         schema: {
           type: 'number',
         },
