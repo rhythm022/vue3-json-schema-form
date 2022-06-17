@@ -1,16 +1,18 @@
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
+import { defineComponent, h } from 'vue'
 
 
 
-import JsonSchemaForm from '../../lib'
-import NumberField from '../../lib/fields/NumberField'
 import StringField from '../../lib/fields/StringField'
 import ArrayField from '../../lib/fields/ArrayField'
+import NumberField from '../../lib/fields/NumberField'
 import theme from '../../lib/theme-default'
 
-describe('ArrayField', () => {
-  it.skip('should render multi type', () => {
-    const wrapper = mount(JsonSchemaForm, {
+import TestComponent from './utils/TestComponent'
+
+describe('ArrayFiled', () => {
+  it('should render multi type', () => {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
@@ -36,8 +38,8 @@ describe('ArrayField', () => {
     expect(num.exists()).toBeTruthy()
   })
 
-  it.skip('should render single type', () => {
-    const wrapper = mount(JsonSchemaForm, {
+  it('should render single type', () => {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
@@ -52,15 +54,15 @@ describe('ArrayField', () => {
 
     const arr = wrapper.findComponent(ArrayField)
     const strs = arr.findAllComponents(StringField)
-    // const num = arr.findComponent(NumberField)
+    // const num = arr.findComponent(NumberFiled)
 
     expect(strs.length).toBe(2)
     expect(strs[0].props('value')).toBe('1')
     // expect(num.exists()).toBeTruthy()
   })
 
-  it.skip('should render single type', () => {
-    const wrapper = mount(JsonSchemaForm, {
+  it('should render single type', () => {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
@@ -76,7 +78,7 @@ describe('ArrayField', () => {
 
     const arr = wrapper.findComponent(ArrayField)
     const select = arr.findComponent(theme.widgets.SelectionWidget)
-    // const num = arr.findComponent(NumberField)
+    // const num = arr.findComponent(NumberFiled)
 
     expect(select.exists()).toBeTruthy()
     // expect(num.exists()).toBeTruthy()
