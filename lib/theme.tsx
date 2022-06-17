@@ -6,12 +6,13 @@ import {
   provide,
   ComputedRef,
 } from 'vue'
-import { Theme } from './types'
+import { CommonWidgetNames, SelectionWidgetNames, Theme } from './types'
 
 const THEME_PROVIDER_KEY = Symbol()
 
 // provide context eg. props theme
-const ThemeProvider = defineComponent({// 把 theme 从原来的 props 里单独拿出来。只有更大的组件\视图能为组件\视图，提供上下文。
+const ThemeProvider = defineComponent({
+  // 把 theme 从原来的 props 里单独拿出来。只有更大的组件\视图能为组件\视图，提供上下文。
   name: 'VJSFThemeProvider',
   props: {
     theme: {
@@ -20,7 +21,8 @@ const ThemeProvider = defineComponent({// 把 theme 从原来的 props 里单独
     },
   },
   setup(props, { slots }) {
-    const context = computed(() => props.theme)//?? 可以不要 computed 吗
+    //?? 可以不要 computed 吗
+    const context = computed(() => props.theme)
 
     provide(THEME_PROVIDER_KEY, context)
 
@@ -28,7 +30,9 @@ const ThemeProvider = defineComponent({// 把 theme 从原来的 props 里单独
   },
 })
 
-export function getWidget(name: string) {
+export function getWidget<T extends SelectionWidgetNames | CommonWidgetNames>(
+  name: T,
+) {
   const context: ComputedRef<Theme> | undefined = inject<ComputedRef<Theme>>(
     THEME_PROVIDER_KEY,
   )
@@ -37,7 +41,8 @@ export function getWidget(name: string) {
   }
 
   const widgetRef = computed(() => {
-    return (context.value.widgets as any)[name]//?? 可以不要 computed 吗
+    //?? 可以不要 computed 吗
+    return context.value.widgets[name]
   })
 
   return widgetRef

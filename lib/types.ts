@@ -49,7 +49,7 @@ export interface Schema {
   exclusiveMinimum?: number
 }
 
-const PropsDefine = {
+export const PropsDefine = {
   schema: {
     type: Object as PropType<Schema>,
     required: true,
@@ -89,7 +89,7 @@ const CommonWidgetPropsDefine = {
   },
 } as const
 
-const SelectionWidgetPropsDefine = {
+export const SelectionWidgetPropsDefine = {
   ...CommonWidgetPropsDefine,
   options: {
     type: Array as PropType<
@@ -100,7 +100,7 @@ const SelectionWidgetPropsDefine = {
     >,
     required: true,
   },
-}
+} as const
 
 type CommonWidgetDefine = DefineComponent<
   typeof CommonWidgetPropsDefine,
@@ -108,16 +108,25 @@ type CommonWidgetDefine = DefineComponent<
   {}
 >
 
-type SelectionWidgetDefine = DefineComponent<
+export type SelectionWidgetDefine = DefineComponent<
   typeof SelectionWidgetPropsDefine,
   {},
   {}
 >
 
+export enum SelectionWidgetNames {
+  SelectionWidget = 'SelectionWidget',
+}
+
+export enum CommonWidgetNames {
+  TextWidget = 'TextWidget',
+  NumberWidget = 'NumberWidget',
+}
+
 export interface Theme {
   widgets: {
-    SelectionWidget: SelectionWidgetDefine
-    TextWidget: CommonWidgetDefine
-    NumberWidget: CommonWidgetDefine
+    [SelectionWidgetNames.SelectionWidget]: SelectionWidgetDefine
+    [CommonWidgetNames.TextWidget]: CommonWidgetDefine
+    [CommonWidgetNames.NumberWidget]: CommonWidgetDefine
   }
 }
