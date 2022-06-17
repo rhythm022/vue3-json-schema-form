@@ -9,7 +9,6 @@ describe('JsonSchemaFrom', () => {
     let value = ''
     const wrapper = mount(JsonSchemaForm, {
       props: {
-        theme:theme as any ,
         schema: {
           type: 'number',
         },

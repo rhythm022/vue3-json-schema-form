@@ -24,7 +24,6 @@ describe('ObjectField', () => {
   it('should render properties to correct fields', async () => {
     const wrapper = mount(JsonSchemaForm, {
       props: {
-        theme:theme as any ,
         schema,
         value: {},
         onChange: () => {},
@@ -42,7 +41,6 @@ describe('ObjectField', () => {
     let value: any = {}
     const wrapper = mount(JsonSchemaForm, {
       props: {
-        theme:theme as any ,
         schema,
         value: value,
         onChange: (v) => {
@@ -67,7 +65,6 @@ describe('ObjectField', () => {
     }
     const wrapper = mount(JsonSchemaForm, {
       props: {
-        theme:theme as any ,
         schema,
         value: value,
         onChange: (v) => {

@@ -65,10 +65,6 @@ const PropsDefine = {
 
 export const FormPropsDefine = {
   ...PropsDefine,
-  theme: {
-    type: Object as PropType<Theme>,
-    required: true,
-  },
 } as const
 
 export const FieldPropsDefine = {

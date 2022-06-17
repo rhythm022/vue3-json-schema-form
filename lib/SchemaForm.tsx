@@ -13,7 +13,6 @@ export default defineComponent({
     }
     const context: any = {
       SchemaItem,
-      theme: props.theme,
     }
     provide(SchemaFormContextKey, context)
 
