@@ -1,9 +1,10 @@
 import SelectionWidget from './Selection'
+import TextWidget from './Text'
 
 export default {
   widgets: {
     SelectionWidget,
-    TextWidget: null,
+    TextWidget,
     NumberWidget: null,
   },
 }

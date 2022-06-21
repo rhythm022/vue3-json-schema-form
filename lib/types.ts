@@ -81,7 +81,7 @@ const TypeHelperComponent = defineComponent({
 
 export type CommonFieldType = typeof TypeHelperComponent
 
-const CommonWidgetPropsDefine = {
+export const CommonWidgetPropsDefine = {
   value: {},
   onChange: {
     type: Function as PropType<(v: any) => void>,
@@ -102,7 +102,7 @@ export const SelectionWidgetPropsDefine = {
   },
 } as const
 
-type CommonWidgetDefine = DefineComponent<
+export type CommonWidgetDefine = DefineComponent<
   typeof CommonWidgetPropsDefine,
   {},
   {}
