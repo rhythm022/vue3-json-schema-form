@@ -5,6 +5,7 @@ specifiers:
   '@commitlint/config-conventional': ^17.0.2
   '@types/jest': ^24.0.19
   '@types/json-schema-merge-allof': ^0.6.0
+  '@types/lodash.topath': ^4.5.7
   '@types/lodash.union': ^4.6.6
   '@typescript-eslint/eslint-plugin': ^2.33.0
   '@typescript-eslint/parser': ^2.33.0
@@ -33,6 +34,7 @@ specifiers:
   jss: ^10.4.0
   jss-preset-default: ^10.4.0
   lint-staged: ^9.5.0
+  lodash.topath: ^4.5.2
   lodash.union: ^4.6.0
   monaco-editor: ^0.20.0
   monaco-editor-webpack-plugin: ^1.9.1
@@ -52,6 +54,7 @@ dependencies:
   jsonpointer: 4.1.0
   jss: 10.9.0
   jss-preset-default: 10.9.0
+  lodash.topath: 4.5.2
   lodash.union: 4.6.0
   vue: registry.npmmirror.com/vue/3.2.36
   vue-jss: 0.0.4
@@ -61,6 +64,7 @@ devDependencies:
   '@commitlint/config-conventional': 17.0.2
   '@types/jest': registry.npmmirror.com/@types/jest/24.9.1
   '@types/json-schema-merge-allof': 0.6.1
+  '@types/lodash.topath': 4.5.7
   '@types/lodash.union': 4.6.7
   '@typescript-eslint/eslint-plugin': 2.34.0_73a810d7f2c32a570c056acd8cb524d2
   '@typescript-eslint/parser': 2.34.0_eslint@6.8.0+typescript@4.3.5
@@ -1921,6 +1925,12 @@ packages:
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
+    dev: true
+
+  /@types/lodash.topath/4.5.7:
+    resolution: {integrity: sha512-PZUkjAdGzHKufImfp1f0MoRCX8KNjqqg4JSWiO9nnVkODAP5QvHdva6htFsneqwQ6biydtglSmeirEcrEhVqsA==}
+    dependencies:
+      '@types/lodash': 4.14.182
     dev: true
 
   /@types/lodash.union/4.6.7:
@@ -7833,6 +7843,10 @@ packages:
   /lodash.sortby/4.7.0:
     resolution: {integrity: sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==}
     dev: true
+
+  /lodash.topath/4.5.2:
+    resolution: {integrity: sha512-1/W4dM+35DwvE/iEd1M9ekewOSTlpFekhw9mhAtrwjVqUr83/ilQiyAvmg4tVX7Unkcfl1KC+i9WdaT4B6aQcg==}
+    dev: false
 
   /lodash.transform/4.6.0:
     resolution: {integrity: sha512-LO37ZnhmBVx0GvOU/caQuipEh4GN82TcWv3yHlebGDgOxbxiwwzW5Pcx2AcvpIv2WmvmSMoC492yQFNhy/l/UQ==}

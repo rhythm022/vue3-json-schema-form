@@ -10,6 +10,7 @@ import { FormPropsDefine } from './types'
 import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './context'
 import Ajv, { Options } from 'ajv'
+import { validateFormData } from './validator'
 
 const defaultAjvOptions: Options = {
   allErrors: true,
@@ -44,14 +45,12 @@ export default defineComponent({
         if (props.contextRef) {
           props.contextRef.value = {
             doValidate() {
-              const valid = validatorRef.value.validate(
-                props.schema,
+              return validateFormData(
+                validatorRef.value,
                 props.value,
-              ) as boolean
-              return {
-                valid,
-                errors: validatorRef.value.errors || [],
-              }
+                props.schema,
+                props.locale,
+              )
             },
           }
         }

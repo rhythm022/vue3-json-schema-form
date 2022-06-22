@@ -79,6 +79,10 @@ export const FormPropsDefine = {
   ajvOptions: {
     type: Object as PropType<Options>,
   },
+  locale: {
+    type: String,
+    default: 'zh',
+  },
 } as const
 
 export const FieldPropsDefine = {
