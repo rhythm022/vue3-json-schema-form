@@ -1,24 +1,8 @@
 import Ajv from 'ajv'
 const i18n = require('ajv-i18n') // eslint-disable-line
 
-import { Schema } from './types'
+import { Schema, TransformedErrorObject, ErrorSchema } from './types'
 
-interface TransformedErrorObject {
-  name: string
-  property: string
-  message: string | undefined
-  params: Ajv.ErrorParameters
-  schemaPath: string
-}
-
-interface ErrorSchemaObject {
-  [level: string]: ErrorSchema
-}
-
-export type ErrorSchema = ErrorSchemaObject & {
-  // & 用于合并类型属性
-  __errors: string[]
-}
 function toErrorSchema(errors: TransformedErrorObject[]) {
   if (errors.length < 1) return {}
 

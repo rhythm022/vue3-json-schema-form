@@ -13,7 +13,13 @@ export default defineComponent({
     const TextWidgetRef = getWidget(CommonWidgetNames.TextWidget)
 
     return () => {
-      return <TextWidgetRef.value value={props.value} onChange={handleChange} />
+      return (
+        <TextWidgetRef.value
+          value={props.value}
+          onChange={handleChange}
+          errors={props.errorSchema.__errors}
+        />
+      )
     }
   },
 })

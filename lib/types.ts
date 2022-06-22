@@ -1,5 +1,5 @@
 import { PropType, defineComponent, DefineComponent, Ref } from 'vue'
-import { Options } from 'ajv'
+import Ajv, { Options } from 'ajv'
 
 export enum SchemaTypes {
   'NUMBER' = 'number',
@@ -91,6 +91,10 @@ export const FieldPropsDefine = {
     type: Object as PropType<Schema>,
     required: true,
   },
+  errorSchema: {
+    type: Object as PropType<ErrorSchema>,
+    required: true,
+  },
 } as const
 
 const TypeHelperComponent = defineComponent({
@@ -104,6 +108,9 @@ export const CommonWidgetPropsDefine = {
   onChange: {
     type: Function as PropType<(v: any) => void>,
     required: true,
+  },
+  errors: {
+    type: Array as PropType<string[]>,
   },
 } as const
 
@@ -147,4 +154,21 @@ export interface Theme {
     [CommonWidgetNames.TextWidget]: CommonWidgetDefine
     [CommonWidgetNames.NumberWidget]: CommonWidgetDefine
   }
+}
+
+export interface TransformedErrorObject {
+  name: string
+  property: string
+  message: string | undefined
+  params: Ajv.ErrorParameters
+  schemaPath: string
+}
+
+interface ErrorSchemaObject {
+  [level: string]: ErrorSchema
+}
+
+export type ErrorSchema = ErrorSchemaObject & {
+  // & 用于合并类型属性
+  __errors?: string[]
 }

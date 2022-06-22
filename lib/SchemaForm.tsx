@@ -6,7 +6,7 @@ import {
   watch,
   shallowRef,
 } from 'vue'
-import { FormPropsDefine } from './types'
+import { FormPropsDefine, ErrorSchema } from './types'
 import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './context'
 import Ajv, { Options } from 'ajv'
@@ -37,6 +37,7 @@ export default defineComponent({
         ...props.ajvOptions,
       })
     })
+    const errorSchemaRef: Ref<ErrorSchema> = shallowRef({})
 
     watch(
       // 对父暴露 doValidate，代替对父暴露 this。
@@ -45,12 +46,16 @@ export default defineComponent({
         if (props.contextRef) {
           props.contextRef.value = {
             doValidate() {
-              return validateFormData(
+              const result = validateFormData(
                 validatorRef.value,
                 props.value,
                 props.schema,
                 props.locale,
               )
+
+              errorSchemaRef.value = result.errorSchema
+
+              return result
             },
           }
         }
@@ -67,6 +72,7 @@ export default defineComponent({
           schema={props.schema}
           value={props.value}
           onChange={handleChange}
+          errorSchema={errorSchemaRef.value || {}}
         />
       )
     }
