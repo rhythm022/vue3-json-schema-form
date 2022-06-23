@@ -1,9 +1,8 @@
 import { CommonWidgetPropsDefine } from '../types'
 import { defineComponent } from 'vue'
-// import { withFormItemWrapper } from './FormItemWrapper'
-import FormItemWrapper from './FormItemWrapper'
+import { withFormItemWrapper } from './FormItemWrapper'
 
-const TextWidget = defineComponent({
+let TextWidget = defineComponent({
   props: CommonWidgetPropsDefine,
   setup(props) {
     const handleChange = (e: any) => {
@@ -13,16 +12,16 @@ const TextWidget = defineComponent({
     }
     return () => {
       return (
-        <FormItemWrapper {...(props as any)}>
-          <input
-            type="text"
-            value={props.value as any}
-            onInput={handleChange}
-          />
-        </FormItemWrapper>
+        <input type="text" value={props.value as any} onInput={handleChange} />
       )
     }
   },
 })
+
+// 使用 hoc 时可以：
+// 让调用 Widget 的上层用户不知道加入了 wrapper 组件
+// 让 Widget 也不知道 wrapper 组件的加入，自己被挤下去了
+// 总之，无感的加入了中间层
+TextWidget = withFormItemWrapper(TextWidget)
 
 export default TextWidget

@@ -29,7 +29,8 @@ const FormItemWrapper = defineComponent({
       return (
         <div class={classes.container}>
           <label class={classes.label}>{schema.title}</label>
-          {slots.default && slots.default()}
+          {/* 无论 Widget 是内部写死，还是通过 slot 外部传入，Widget 都是 FormItemWrapper 的子组件 */}
+          {slots.default && slots.default()}{' '}
           <ul class={classes.errorText}>
             {errors?.map((err) => (
               <li>{err}</li>
@@ -44,18 +45,20 @@ const FormItemWrapper = defineComponent({
 export default FormItemWrapper
 
 // HOC: Higher Order Component: 高阶组件
-// export function withFormItemWrapper(Widget: any) {
-//   return defineComponent({
-//     name: `Wrapped${Widget.name}`,
-//     props: CommonWidgetPropsDefine,
-//     setup(props, { attrs }) {
-//       return () => {
-//         return (
-//           <FormItemWrapper {...(props as any)}>
-//             <Widget {...props} {...attrs} />
-//           </FormItemWrapper>
-//         )
-//       }
-//     },
-//   }) as any
-// }
+export function withFormItemWrapper(Widget: any) {
+  // withFormItemWrapper 专门用来耦合 FormItemWrapper Widget
+  // 三个都是组件，从父到子：withFormItemWrapper > FormItemWrapper > Widget
+  return defineComponent({
+    name: `Wrapped${Widget.name}`,
+    props: CommonWidgetPropsDefine,
+    setup(props, { attrs }) {
+      return () => {
+        return (
+          <FormItemWrapper {...(props as any)}>
+            <Widget {...props} {...attrs} />
+          </FormItemWrapper>
+        )
+      }
+    },
+  }) as any
+}
