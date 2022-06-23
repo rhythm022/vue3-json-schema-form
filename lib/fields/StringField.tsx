@@ -18,6 +18,7 @@ export default defineComponent({
           value={props.value}
           onChange={handleChange}
           errors={props.errorSchema.__errors}
+          schema={props.schema}
         />
       )
     }

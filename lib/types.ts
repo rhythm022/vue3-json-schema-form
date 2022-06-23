@@ -112,6 +112,10 @@ export const CommonWidgetPropsDefine = {
   errors: {
     type: Array as PropType<string[]>,
   },
+  schema: {
+    type: Object as PropType<Schema>,
+    required: true,
+  },
 } as const
 
 export const SelectionWidgetPropsDefine = {

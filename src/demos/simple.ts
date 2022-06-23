@@ -6,13 +6,16 @@ export default {
     required: ['firstName', 'lastName'],
     properties: {
       firstName: {
+        title: 'firstName',
         type: 'string',
         default: 'Chuck',
       },
       lastName: {
+        title: 'lastName',
         type: 'string',
       },
       telephone: {
+        title: 'telephone',
         type: 'string',
         minLength: 10,
       },
@@ -42,6 +45,7 @@ export default {
         },
       },
       multiSelectArray: {
+        title: 'multiSelectArray',
         type: 'array',
         items: {
           type: 'string',
@@ -65,7 +69,8 @@ export default {
     },
   },
   default: {
-    firstName: 'Chuck',
+    firstName: 1,
+    telephone: '555',
     lastName: 'Norris',
     age: 75,
     bio: 'Roundhouse kicking asses since 1940',

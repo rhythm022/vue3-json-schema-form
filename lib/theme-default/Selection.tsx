@@ -1,5 +1,8 @@
 import { defineComponent, ref, watch } from 'vue'
 import { SelectionWidgetPropsDefine } from '../types'
+// import { withFormItemWrapper } from './FormItemWrapper'
+import FormItemWrapper from './FormItemWrapper'
+
 export default defineComponent({
   name: 'SelectionWidget',
   props: SelectionWidgetPropsDefine,
@@ -23,11 +26,13 @@ export default defineComponent({
     return () => {
       const { options } = props
       return (
-        <select multiple={true} v-model={currentValueRef.value}>
-          {options.map((op) => (
-            <option value={op.value}>{op.key}</option>
-          ))}
-        </select>
+        <FormItemWrapper {...(props as any)}>
+          <select multiple={true} v-model={currentValueRef.value}>
+            {options.map((op) => (
+              <option value={op.value}>{op.key}</option>
+            ))}
+          </select>
+        </FormItemWrapper>
       )
     }
   },

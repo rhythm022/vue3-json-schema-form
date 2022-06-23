@@ -1,5 +1,7 @@
 import { CommonWidgetPropsDefine } from '../types'
 import { defineComponent } from 'vue'
+// import { withFormItemWrapper } from './FormItemWrapper'
+import FormItemWrapper from './FormItemWrapper'
 
 const TextWidget = defineComponent({
   props: CommonWidgetPropsDefine,
@@ -11,7 +13,13 @@ const TextWidget = defineComponent({
     }
     return () => {
       return (
-        <input type="text" value={props.value as any} onInput={handleChange} />
+        <FormItemWrapper {...(props as any)}>
+          <input
+            type="text"
+            value={props.value as any}
+            onInput={handleChange}
+          />
+        </FormItemWrapper>
       )
     }
   },
