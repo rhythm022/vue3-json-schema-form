@@ -51,6 +51,7 @@ export default defineComponent({
                 props.value,
                 props.schema,
                 props.locale,
+                props.customValidate,
               )
 
               errorSchemaRef.value = result.errorSchema

@@ -83,6 +83,9 @@ export const FormPropsDefine = {
     type: String,
     default: 'zh',
   },
+  customValidate: {
+    type: Function as PropType<(data: any, errors: any) => void>,
+  },
 } as const
 
 export const FieldPropsDefine = {

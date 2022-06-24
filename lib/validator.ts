@@ -2,7 +2,7 @@ import Ajv from 'ajv'
 const i18n = require('ajv-i18n') // eslint-disable-line
 
 import { Schema, TransformedErrorObject, ErrorSchema } from './types'
-
+import { mergeObjects } from './utils'
 function toErrorSchema(errors: TransformedErrorObject[]) {
   if (errors.length < 1) return {}
 
@@ -64,6 +64,7 @@ export function validateFormData(
   formData: any,
   schema: Schema,
   locale = 'zh',
+  customValidate?: (data: any, errors: any) => void,
 ) {
   let validationError = null
   try {
@@ -86,9 +87,62 @@ export function validateFormData(
 
   const errorSchema = toErrorSchema(errors)
 
+  if (!customValidate) {
+    return {
+      errors,
+      errorSchema,
+      valid: errors.length === 0,
+    }
+  }
+
+  /**
+   * {
+   *    obj: {
+   *       a: { b: str }
+   *       __errors: []
+   *    }
+   * }
+   *
+   * raw.obj.a
+   */
+  const proxy = createErrorProxy()
+  customValidate(formData, proxy)
+
+  const newErrorSchema = mergeObjects(errorSchema, proxy, true) // 666
+
   return {
     errors,
-    errorSchema,
+    errorSchema: newErrorSchema,
     valid: errors.length === 0,
   }
+}
+
+function createErrorProxy() {
+  return new Proxy(
+    {},
+    {
+      get(target, key) {
+        // 如果 .addError，返回函数
+        if (key === 'addError') {
+          return (msg: string) => {
+            const __errors = Reflect.get(target, '__errors')
+            if (Array.isArray(__errors)) {
+              __errors.push(msg)
+            } else {
+              ;(target as any).__errors = [msg]
+            }
+          }
+        }
+        // 如果点出 undefined，就生成并返回 {} 空对象 // 666
+        const res = Reflect.get(target, key)
+        if (res === undefined) {
+          const p: any = createErrorProxy()
+          ;(target as any)[key] = p
+          return p
+        }
+
+        return res
+      },
+    },
+  )
 }
