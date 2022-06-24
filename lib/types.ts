@@ -65,10 +65,10 @@ export const PropsDefine = {
 } as const
 
 interface FormContext {
-  doValidate: () => {
+  doValidate: () => Promise<{
     errors: any[]
     valid: boolean
-  }
+  }>
 }
 
 export const FormPropsDefine = {

@@ -59,7 +59,7 @@ function transformErrors(
   })
 }
 
-export function validateFormData(
+export async function validateFormData(
   validator: Ajv.Ajv,
   formData: any,
   schema: Schema,
@@ -106,7 +106,7 @@ export function validateFormData(
    * raw.obj.a
    */
   const proxy = createErrorProxy()
-  customValidate(formData, proxy)
+  await customValidate(formData, proxy)
 
   const newErrorSchema = mergeObjects(errorSchema, proxy, true) // 666
 

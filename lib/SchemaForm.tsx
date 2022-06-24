@@ -5,6 +5,7 @@ import {
   watchEffect,
   watch,
   shallowRef,
+  ref,
 } from 'vue'
 import { FormPropsDefine, ErrorSchema } from './types'
 import SchemaItem from './SchemaItem'
@@ -14,7 +15,7 @@ import { validateFormData } from './validator'
 
 const defaultAjvOptions: Options = {
   allErrors: true,
-  jsonPointers: true,
+  // jsonPointers: true,
 }
 
 // 负责接口的组件
@@ -39,6 +40,37 @@ export default defineComponent({
     })
     const errorSchemaRef: Ref<ErrorSchema> = shallowRef({})
 
+    const validatingRef = ref()
+    const validateIndex = ref(0)
+    watch(
+      () => props.value,
+      () => {
+        if (validatingRef.value) {
+          validate() // 如果校验中，值发生改变，就自动重新 validate
+        }
+      },
+      { deep: true },
+    )
+    async function validate() {// 用户每一次动作，都新发一次校验，但只关注最后一次校验
+      console.log('start validate -------->')
+      const index = (validateIndex.value += 1)
+      const result = await validateFormData(
+        validatorRef.value,
+        props.value,
+        props.schema,
+        props.locale,
+        props.customValidate,
+      )
+
+      if (index < validateIndex.value) return
+
+      // 表明目前为止，用户没再动过
+      errorSchemaRef.value = result.errorSchema
+
+      validatingRef.value(result)
+      validatingRef.value = undefined
+      console.log('end validate -------->')
+    }
     watch(
       // 对父暴露 doValidate，代替对父暴露 this。
       () => props.contextRef,
@@ -46,17 +78,10 @@ export default defineComponent({
         if (props.contextRef) {
           props.contextRef.value = {
             doValidate() {
-              const result = validateFormData(
-                validatorRef.value,
-                props.value,
-                props.schema,
-                props.locale,
-                props.customValidate,
-              )
-
-              errorSchemaRef.value = result.errorSchema
-
-              return result
+              return new Promise((resolve) => {
+                validatingRef.value = resolve // 表示校验开始
+                validate()
+              })
             },
           }
         }
