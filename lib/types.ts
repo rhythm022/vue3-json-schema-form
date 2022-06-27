@@ -86,6 +86,9 @@ export const FormPropsDefine = {
   customValidate: {
     type: Function as PropType<(data: any, errors: any) => void>,
   },
+  uiSchema: {
+    type: Object as PropType<UISchema>,
+  },
 } as const
 
 export const FieldPropsDefine = {
@@ -96,6 +99,10 @@ export const FieldPropsDefine = {
   },
   errorSchema: {
     type: Object as PropType<ErrorSchema>,
+    required: true,
+  },
+  uiSchema: {
+    type: Object as PropType<UISchema>,
     required: true,
   },
 } as const
@@ -118,6 +125,9 @@ export const CommonWidgetPropsDefine = {
   schema: {
     type: Object as PropType<Schema>,
     required: true,
+  },
+  options: {
+    type: Object as PropType<{ [keys: string]: any }>,
   },
 } as const
 
@@ -178,4 +188,14 @@ interface ErrorSchemaObject {
 export type ErrorSchema = ErrorSchemaObject & {
   // & 用于合并类型属性
   __errors?: string[]
+}
+
+export type UISchema = {
+  widget?: string | CommonWidgetDefine
+  properties?: {
+    [key: string]: UISchema
+  }
+  items?: UISchema | UISchema[]
+} & {
+  [key: string]: any
 }

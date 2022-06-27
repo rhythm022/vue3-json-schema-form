@@ -1,5 +1,5 @@
 import { CommonWidgetPropsDefine } from '../types'
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { withFormItemWrapper } from './FormItemWrapper'
 
 let TextWidget = defineComponent({
@@ -10,9 +10,20 @@ let TextWidget = defineComponent({
       e.target.value = props.value // 用 props.value 复原 dom，让 dom 上的 value 只在初始化时被 props 控制。即受控组件。
       ;(props as any).onChange(value)
     }
+    const styleRef = computed(() => {
+      return {
+        color: (props.options && props.options.color) || 'black',
+      }
+    })
+
     return () => {
       return (
-        <input type="text" value={props.value as any} onInput={handleChange} />
+        <input
+          type="text"
+          value={props.value as any}
+          onInput={handleChange}
+          style={styleRef.value}
+        />
       )
     }
   },

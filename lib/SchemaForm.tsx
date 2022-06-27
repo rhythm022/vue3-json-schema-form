@@ -51,7 +51,8 @@ export default defineComponent({
       },
       { deep: true },
     )
-    async function validate() {// 用户每一次动作，都新发一次校验，但只关注最后一次校验
+    async function validate() {
+      // 用户每一次动作，都新发一次校验，但只关注最后一次校验
       console.log('start validate -------->')
       const index = (validateIndex.value += 1)
       const result = await validateFormData(
@@ -99,6 +100,7 @@ export default defineComponent({
           value={props.value}
           onChange={handleChange}
           errorSchema={errorSchemaRef.value || {}}
+          uiSchema={props.uiSchema || {}}
         />
       )
     }

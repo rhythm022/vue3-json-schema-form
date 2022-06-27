@@ -1,3 +1,5 @@
+import PasswordWidget from '../components/PasswordWiget'
+
 export default {
   name: 'Demo',
   schema: {
@@ -15,19 +17,28 @@ export default {
       },
     },
   },
-  async customValidate(data: any, errors: any) {
-    await timeout(2000)
+  // async customValidate(data: any, errors: any) {
+  //   await timeout(2000)
 
-    if (data.pass1 !== data.pass2) {
-      errors.pass2.addError('密码必须相同')
-    }
+  //   if (data.pass1 !== data.pass2) {
+  //     errors.pass2.addError('密码必须相同')
+  //   }
+  // },
+  uiSchema: {
+    properties: {
+      pass1: {
+        widget: PasswordWidget,
+      },
+      pass2: {
+        color: 'red',
+      },
+    },
   },
-  uiSchema: {},
   default: 1,
 }
 
-async function timeout(t: any) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, t)
-  })
-}
+// async function timeout(t: any) {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, t)
+//   })
+// }

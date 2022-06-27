@@ -157,7 +157,7 @@ export default defineComponent({
     const SelectionWidgetRef = getWidget(SelectionWidgetNames.SelectionWidget)
 
     return () => {
-      const { schema, rootSchema, value, errorSchema } = props
+      const { schema, rootSchema, value, errorSchema, uiSchema } = props
 
       const SchemaItem = context.SchemaItem
 
@@ -168,20 +168,29 @@ export default defineComponent({
         // 用户填写指定数量的不同类型的值
         const items: Schema[] = schema.items as any
         const arr = Array.isArray(value) ? value : []
-        return items.map((
-          // schema map
-          s: Schema,
-          index: number,
-        ) => (
-          <SchemaItem
-            schema={s}
-            key={index}
-            rootSchema={rootSchema}
-            value={arr[index]}
-            onChange={(v: any) => handleArrayItemChange(v, index)}
-            errorSchema={errorSchema[index] || {}}
-          />
-        ))
+        return items.map(
+          (
+            // schema map
+            s: Schema,
+            index: number,
+          ) => {
+            const itemsUiSchema = uiSchema.items
+            const us = Array.isArray(itemsUiSchema)
+              ? itemsUiSchema[index] || {} // 666
+              : itemsUiSchema || {}
+            return (
+              <SchemaItem
+                schema={s}
+                uiSchema={us}
+                key={index}
+                rootSchema={rootSchema}
+                value={arr[index]}
+                onChange={(v: any) => handleArrayItemChange(v, index)}
+                errorSchema={errorSchema[index] || {}}
+              />
+            )
+          },
+        )
       } else if (!isSelect) {
         // 用户填写不定数量的同一类型的值
         const arr = Array.isArray(value) ? value : []
@@ -198,6 +207,7 @@ export default defineComponent({
             >
               <SchemaItem
                 schema={schema.items as Schema}
+                uiSchema={(uiSchema.items as any) || {}}
                 value={v}
                 key={index}
                 rootSchema={rootSchema}
