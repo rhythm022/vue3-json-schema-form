@@ -15,7 +15,7 @@ import { validateFormData } from './validator'
 
 const defaultAjvOptions: Options = {
   allErrors: true,
-  // jsonPointers: true,
+  jsonPointers: true,
 }
 
 // 负责接口的组件
