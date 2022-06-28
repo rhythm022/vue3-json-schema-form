@@ -6,20 +6,21 @@ import {
   provide,
   ComputedRef,
   ref,
+  ExtractPropTypes,
 } from 'vue'
+import { useVJSFContext } from './context'
 import {
   CommonWidgetNames,
   SelectionWidgetNames,
   Theme,
-  UISchema,
-  CommonWidgetDefine,
+  FieldPropsDefine,
 } from './types'
 import { isObject } from './utils'
 
 const THEME_PROVIDER_KEY = Symbol()
 
 // provide context eg. props theme
-const ThemeProvider = defineComponent({
+export default defineComponent({
   // 把 theme 从原来的 props 里单独拿出来。只有更大的组件\视图能为组件\视图，提供上下文。
   name: 'VJSFThemeProvider',
   props: {
@@ -40,10 +41,19 @@ const ThemeProvider = defineComponent({
 
 export function getWidget<T extends SelectionWidgetNames | CommonWidgetNames>(
   name: T,
-  uiSchema?: UISchema,
+  props?: ExtractPropTypes<typeof FieldPropsDefine>,
 ) {
-  if (uiSchema?.widget && isObject(uiSchema.widget)) {
-    return ref(uiSchema.widget as CommonWidgetDefine)
+  if (props) {
+    const { uiSchema, schema } = props
+    if (uiSchema?.widget && isObject(uiSchema.widget)) {
+      return ref(uiSchema.widget) //  优先 uiSchema 里找
+    }
+    if (schema.format) {
+      const formContext = useVJSFContext()
+      if (formContext.formatMapRef.value[schema.format]) {
+        return ref(formContext.formatMapRef.value[schema.format]) //  再 formContext 里找（即 format 里找）
+      }
+    }
   }
 
   const context: ComputedRef<Theme> | undefined = inject<ComputedRef<Theme>>(
@@ -55,10 +65,8 @@ export function getWidget<T extends SelectionWidgetNames | CommonWidgetNames>(
 
   const widgetRef = computed(() => {
     //?? 可以不要 computed 吗
-    return context.value.widgets[name]
+    return context.value.widgets[name] // 再 context 里找（即 default 里找）
   })
 
   return widgetRef
 }
-
-export default ThemeProvider

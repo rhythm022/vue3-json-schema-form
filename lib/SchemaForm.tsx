@@ -6,8 +6,9 @@ import {
   watch,
   shallowRef,
   ref,
+  computed,
 } from 'vue'
-import { FormPropsDefine, ErrorSchema } from './types'
+import { FormPropsDefine, ErrorSchema, CommonWidgetDefine } from './types'
 import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './context'
 import Ajv, { Options } from 'ajv'
@@ -26,8 +27,21 @@ export default defineComponent({
     const handleChange = (v: any) => {
       ;(props as any).onChange(v)
     }
+    const formatMapRef = computed(() => {
+      if (props.customFormats) {
+        // 接口层处理接口的体现
+        const customFormats = Array.isArray(props.customFormats)
+          ? props.customFormats
+          : [props.customFormats]
+        return customFormats.reduce((result, format) => {
+          result[format.name] = format.component
+          return result
+        }, {} as { [key: string]: CommonWidgetDefine }) // 取出 widget
+      } else return {}
+    })
     const context: any = {
       SchemaItem,
+      formatMapRef,
     }
     provide(SchemaFormContextKey, context)
 
@@ -37,6 +51,16 @@ export default defineComponent({
         ...defaultAjvOptions,
         ...props.ajvOptions,
       })
+
+      if (props.customFormats) {
+        const customFormats = Array.isArray(props.customFormats)
+          ? props.customFormats
+          : [props.customFormats]
+        customFormats.forEach((format) => {
+          // 取出 validate
+          validatorRef.value.addFormat(format.name, format.definition)
+        })
+      }
     })
     const errorSchemaRef: Ref<ErrorSchema> = shallowRef({})
 

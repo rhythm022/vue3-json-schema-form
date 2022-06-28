@@ -7,6 +7,7 @@ import demos from './demos'
 
 import SchemaForm, { ThemeProvider } from '../lib'
 import themeDefault from '../lib/theme-default'
+import customFormat from './plugins/customFormat'
 
 // TODO: 在lib中export
 type Schema = any
@@ -189,13 +190,15 @@ export default defineComponent({
             </div>
             <div class={classes.form}>
               <ThemeProvider theme={themeDefault as any}>
+                {/* 用户自己提供 default widget  */}
                 <SchemaForm
                   schema={demo.schema}
-                  uiSchema={demo.uiSchema || {}}
                   onChange={handleChange}
                   value={demo.data}
                   contextRef={contextRef}
-                  customValidate={demo.customValidate}
+                  uiSchema={demo.uiSchema || {}} //  用户自己提供 widget（代替型）
+                  customValidate={demo.customValidate} //  用户自己提供 validate（拓展型）
+                  customFormats={customFormat} // 用户自己提供 widget + validate（widget 代替 validate 拓展）
                 />
               </ThemeProvider>
               {/* <SchemaForm

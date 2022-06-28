@@ -1,6 +1,5 @@
 import { PropType, defineComponent, DefineComponent, Ref } from 'vue'
-import Ajv, { Options } from 'ajv'
-
+import Ajv, { Options, FormatDefinition } from 'ajv'
 export enum SchemaTypes {
   'NUMBER' = 'number',
   'INTEGER' = 'integer',
@@ -88,6 +87,9 @@ export const FormPropsDefine = {
   },
   uiSchema: {
     type: Object as PropType<UISchema>,
+  },
+  customFormats: {
+    type: [Array, Object] as PropType<CustomFormat[] | CustomFormat>,
   },
 } as const
 
@@ -198,4 +200,10 @@ export type UISchema = {
   items?: UISchema | UISchema[]
 } & {
   [key: string]: any
+}
+
+export interface CustomFormat {
+  name: string
+  definition: FormatDefinition
+  component: CommonWidgetDefine
 }
