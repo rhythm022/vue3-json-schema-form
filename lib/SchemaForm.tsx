@@ -8,7 +8,12 @@ import {
   ref,
   computed,
 } from 'vue'
-import { FormPropsDefine, ErrorSchema, CommonWidgetDefine } from './types'
+import {
+  FormPropsDefine,
+  ErrorSchema,
+  CommonWidgetDefine,
+  Schema,
+} from './types'
 import SchemaItem from './SchemaItem'
 import { SchemaFormContextKey } from './context'
 import Ajv, { Options } from 'ajv'
@@ -39,9 +44,29 @@ export default defineComponent({
         }, {} as { [key: string]: CommonWidgetDefine }) // 取出 widget
       } else return {}
     })
+
+    const transformSchemaRef = computed(() => {
+      if (props.customKeywords) {
+        const customKeywords = Array.isArray(props.customKeywords)
+          ? props.customKeywords
+          : [props.customKeywords]
+        return (schema: Schema) => {
+          let newSchema = schema
+          customKeywords.forEach((keyword) => {
+            if ((newSchema as any)[keyword.name]) {
+              newSchema = keyword.transformSchema(schema)
+            }
+          })
+          return newSchema
+        }
+      }
+      return (s: Schema) => s
+    })
+
     const context: any = {
       SchemaItem,
       formatMapRef,
+      transformSchemaRef,
     }
     provide(SchemaFormContextKey, context)
 
@@ -59,6 +84,15 @@ export default defineComponent({
         customFormats.forEach((format) => {
           // 取出 validate
           validatorRef.value.addFormat(format.name, format.definition)
+        })
+      }
+
+      if (props.customKeywords) {
+        const customKeywords = Array.isArray(props.customKeywords)
+          ? props.customKeywords
+          : [props.customKeywords]
+        customKeywords.forEach((keyword) => {
+          validatorRef.value.addKeyword(keyword.name, keyword.definition)
         })
       }
     })
