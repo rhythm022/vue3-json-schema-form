@@ -1,5 +1,5 @@
 # vue3-json-schema-form
-
+![Codecov branch](https://img.shields.io/codecov/c/gh/rhythm022/vue3-json-schema-form/master)
 ## Project setup
 
 ```
